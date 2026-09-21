@@ -34,12 +34,7 @@ export default defineConfig({
         url: "https://github.com/rothsandro/eleventy-notes",
         label: "GitHub / Support",
         icon: "github",
-      },
-      {
-        url: "https://www.buymeacoffee.com/sandroroth",
-        label: "Buy me a coffee",
-        icon: "coffee",
-      },
+      }
     ],
     sections: [
       {
@@ -48,6 +43,44 @@ export default defineConfig({
           {
             query: createNotesQuery({
               pattern: "^/Introduction/",
+            }),
+          },
+        ],
+      },
+      {
+        label: "Java",
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "^/Java/",
+              tree: {
+                expanded: false,
+                replace: {
+                  "^/Java/[^/]+/": "/Java/",
+                },
+              },
+            }),
+          },
+        ],
+      },
+      {
+        label: "Git & GitHub",
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "^/Git-and-GitHub/",
+              tree: true,
+            }),
+          },
+        ],
+      },
+      {
+        label: "AI Basics",
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "^/AI-Basics/",
+              tree: true
             }),
           },
         ],

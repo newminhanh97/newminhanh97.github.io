@@ -15,6 +15,10 @@ export const core = {
    * @param {import("@11ty/eleventy/UserConfig").default} config
    */
   setup(config) {
+    if (process.argv.some((arg) => arg === "--serve" || arg === "--watch")) {
+      config.setUseTemplateCache(false);
+    }
+
     config.setLibrary("md", markdownLibrary(config));
 
     config.addPlugin(RenderPlugin);
