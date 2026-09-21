@@ -9,6 +9,17 @@ The sidebar is the main navigation of the app. It shows links to the start page,
 
 The sidebar can be segmented into multiple sections, each containing one or more collapsible groups. This allows for a highly organized and navigable note structure. The example below demonstrates a basic configuration with a single section and group, which displays all your notes. The `createNotesQuery()` function is used to generate a query that selects and displays all notes.
 
+Set `showTags` to `false` to hide the Tags link and tag list from the sidebar. This
+does not remove tags from notes or disable tag pages.
+
+```js
+export default defineConfig({
+  sidebar: {
+    showTags: false,
+  },
+});
+```
+
 ```js
 // /app.mjs
 import { defineConfig, createNotesQuery } from "./.app/app-config.js";

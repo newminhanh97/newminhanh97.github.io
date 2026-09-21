@@ -29,17 +29,13 @@ export default defineConfig({
     ],
   },
   sidebar: {
+    showTags: false,
     links: [
       {
         url: "https://github.com/rothsandro/eleventy-notes",
         label: "GitHub / Support",
         icon: "github",
-      },
-      {
-        url: "https://www.buymeacoffee.com/sandroroth",
-        label: "Buy me a coffee",
-        icon: "coffee",
-      },
+      }
     ],
     sections: [
       {
@@ -53,43 +49,15 @@ export default defineConfig({
         ],
       },
       {
-        label: "Notes",
+        label: "Java",
         groups: [
           {
             query: createNotesQuery({
-              pattern: "^/Notes/",
-            }),
-          },
-        ],
-      },
-      {
-        label: "Customization",
-        groups: [
-          {
-            label: "Configuration",
-            query: createNotesQuery({
-              pattern: "^/Configuration/",
-            }),
-          },
-          {
-            label: "Templating",
-            expanded: false,
-            query: createNotesQuery({
-              pattern: "^/Templating/",
-            }),
-          },
-        ],
-      },
-      {
-        label: "Deployment",
-        groups: [
-          {
-            query: createNotesQuery({
-              pattern: "^/Deployment/",
+              pattern: "^/Java(?: method)?/",
               tree: {
                 expanded: false,
                 replace: {
-                  "^/\\w+": "",
+                  "^/Java/[^/]+/": "/Java/",
                 },
               },
             }),
@@ -97,11 +65,30 @@ export default defineConfig({
         ],
       },
       {
-        label: "Releases",
+        label: "Version Control & CI",
         groups: [
           {
             query: createNotesQuery({
-              pattern: "^/Releases/",
+              pattern: "^/Git and GitHub/",
+              tree: {
+                expanded: false,
+                replace: {
+                  "^/Git and GitHub/": "/Version Control & CI/",
+                },
+              },
+            }),
+          },
+        ],
+      },
+      {
+        label: "AI Basics",
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "^/AI Basics/",
+              tree: {
+                expanded: false,
+              },
             }),
           },
         ],
