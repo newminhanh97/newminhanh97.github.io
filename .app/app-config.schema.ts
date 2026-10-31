@@ -123,6 +123,18 @@ export interface AppConfig {
    */
   sidebar?: {
     /**
+     * Whether to show the home link in the main sidebar navigation.
+     * @default true
+     */
+    showHome?: boolean;
+
+    /**
+     * Whether to show tag links in the sidebar.
+     * @default true
+     */
+    showTags?: boolean;
+
+    /**
      * A list of links that are displayed after the main navigation.
      * @default []
      */
@@ -158,6 +170,28 @@ export interface AppConfig {
        * The label of the section.
        */
       label: string;
+
+      /**
+       * Whether the section contents can be collapsed.
+       * @default false
+       */
+      collapsible?: boolean;
+
+      /**
+       * Whether a collapsible section should be expanded by default.
+       * @default true
+       */
+      expanded?: boolean;
+
+      /**
+       * Links to display at the start of the section.
+       */
+      links?: Array<{
+        url: string;
+        label: string;
+        icon: string;
+        openInNewTab?: boolean;
+      }>;
 
       /**
        * A list of groups to display in the section.

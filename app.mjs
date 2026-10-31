@@ -29,27 +29,14 @@ export default defineConfig({
     ],
   },
   sidebar: {
+    showHome: false,
     showTags: false,
     links: [
-      {
-        url: "https://github.com/rothsandro/eleventy-notes",
-        label: "GitHub / Support",
-        icon: "github",
-      }
     ],
     sections: [
       {
-        label: "Introduction",
-        groups: [
-          {
-            query: createNotesQuery({
-              pattern: "^/Introduction/",
-            }),
-          },
-        ],
-      },
-      {
         label: "Java",
+        collapsible: true,
         groups: [
           {
             query: createNotesQuery({
@@ -66,6 +53,7 @@ export default defineConfig({
       },
       {
         label: "Version Control & CI",
+        collapsible: true,
         groups: [
           {
             query: createNotesQuery({
@@ -82,6 +70,7 @@ export default defineConfig({
       },
       {
         label: "AI Basics",
+        collapsible: true,
         groups: [
           {
             query: createNotesQuery({
@@ -89,6 +78,31 @@ export default defineConfig({
               tree: {
                 expanded: false,
               },
+            }),
+          },
+        ],
+      },
+      {
+        label: "11ty",
+        collapsible: true,
+        expanded: false,
+        links: [
+          {
+            url: "/",
+            label: "Home",
+            icon: "home",
+            openInNewTab: false,
+          },
+          {
+            url: "https://github.com/rothsandro/eleventy-notes",
+            label: "GitHub / Support",
+            icon: "github",
+          },
+        ],
+        groups: [
+          {
+            query: createNotesQuery({
+              pattern: "^/Introduction/",
             }),
           },
         ],

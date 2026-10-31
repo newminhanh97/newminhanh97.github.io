@@ -32,12 +32,15 @@ export const sidebarSectionsCollection =
         ];
       });
 
-      if (!groups.length) return [];
+      if (!groups.length && !section.links?.length) return [];
 
       return [
         {
           id: getId(),
           label: section.label,
+          collapsible: section.collapsible ?? false,
+          expanded: section.expanded ?? true,
+          links: section.links ?? [],
           groups,
         },
       ];

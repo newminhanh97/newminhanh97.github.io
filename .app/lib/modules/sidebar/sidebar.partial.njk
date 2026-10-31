@@ -6,19 +6,21 @@
   <nav aria-labelledby="app:sidebar:nav" class="nav-section">
     <h3 id="app:sidebar:nav" class="visually-hidden" lang="{% uiLang %}">{{ 'sidebar.sections.main.label' | t }}</h3>
     <ul class="nav-list" role="list" aria-labelledby="app:sidebar:nav">
-      <li>
-        <a
-          href="/"
-          {{ '/' | ariaCurrent | safe }}
-          class="nav-list__link"
-        >
-          {{ 'home' | icon | safe }}
-          {% set indexQuery = { filter: [['url', 'isEqual', '/' ]] } %}
-          {% set indexNote = (collections._notes | query(indexQuery)) | first %}
-          <span>{{ (indexNote.data.navTitle or indexNote.data.title) if indexNote else ('sidebar.sections.main.home_link' | t) }}</span>
-        </a>
-      </li>
-      {% if collections.tags.length %}
+      {% if app.sidebar.showHome %}
+        <li>
+          <a
+            href="/"
+            {{ '/' | ariaCurrent | safe }}
+            class="nav-list__link"
+          >
+            {{ 'home' | icon | safe }}
+            {% set indexQuery = { filter: [['url', 'isEqual', '/' ]] } %}
+            {% set indexNote = (collections._notes | query(indexQuery)) | first %}
+            <span>{{ (indexNote.data.navTitle or indexNote.data.title) if indexNote else ('sidebar.sections.main.home_link' | t) }}</span>
+          </a>
+        </li>
+      {% endif %}
+      {% if app.sidebar.showTags and collections.tags.length %}
         <li>
           <a
             href="/tags/"
@@ -87,8 +89,51 @@
 
   {% if collections._sidebarSections.length %}
     {% for section in collections._sidebarSections %}
-      <nav aria-labelledby="app:sidebar:section:{{ section.id }}" class="nav-section">
-        <h3 id="app:sidebar:section:{{ section.id }}" class="nav-section__title">{{ section.label }}</h3>
+      <nav
+        aria-labelledby="app:sidebar:section:{{ section.id }}"
+        class="nav-section"
+        {% if section.collapsible %}
+        x-data="collapsible('app:sidebar:section:{{ section.id }}', {{ section.expanded }})"
+        :data-expanded="expanded"
+        data-expanded="true"
+        {% endif %}
+      >
+        {% if section.collapsible %}
+          <h3 class="nav-group__title">
+            <button
+              type="button"
+              id="app:sidebar:section:{{ section.id }}"
+              class="nav-group__toggle nav-section__toggle"
+              aria-controls="app:sidebar:section:{{ section.id }}:content"
+              aria-expanded="true"
+              :aria-expanded="expanded"
+              @click="toggle()"
+            >
+              <span>{{ section.label }}</span>
+              {{ 'chevron-right' | icon | safe }}
+            </button>
+          </h3>
+          <div x-show="expanded" id="app:sidebar:section:{{ section.id }}:content">
+        {% else %}
+          <h3 id="app:sidebar:section:{{ section.id }}" class="nav-section__title">{{ section.label }}</h3>
+        {% endif %}
+        {% if section.links.length %}
+          <ul class="nav-list" role="list" aria-labelledby="app:sidebar:section:{{ section.id }}">
+            {% for item in section.links %}
+              <li>
+                <a
+                  href="{{ item.url }}"
+                  {{ ('target="_blank" rel="noopener"' | safe) if item.openInNewTab != false else '' }}
+                  {{ item.url | ariaCurrent | safe }}
+                  class="nav-list__link"
+                >
+                  {{ item.icon | icon | safe }}
+                  <span>{{ item.label }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
         {% for group in section.groups %}
           <div
             class="nav-group"
@@ -120,11 +165,14 @@
             </div>
           </div>
         {% endfor %}
+        {% if section.collapsible %}
+          </div>
+        {% endif %}
       </nav>
     {% endfor %}
   {% endif %}
 
-  {% if collections.tags.length %}
+  {% if app.sidebar.showTags and collections.tags.length %}
     <nav aria-labelledby="app:sidebar:section:tags" class="nav-section">
       <h3 id="app:sidebar:section:tags" class="nav-section__title" lang="{% uiLang %}">
         {{ 'sidebar.sections.tags.label' | t }}

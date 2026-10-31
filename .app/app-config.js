@@ -53,6 +53,8 @@ function applyDefaults(custom) {
       ...custom.customProperties,
     },
     sidebar: {
+      showHome: true,
+      showTags: true,
       links: [],
       sections: [
         {
