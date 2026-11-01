@@ -40,7 +40,7 @@ export default defineConfig({
         groups: [
           {
             query: createNotesQuery({
-              pattern: "^/Java(?: method)?/",
+              pattern: "^/Java(?: method| Classes| Data Structures)?/",
               tree: {
                 expanded: false,
                 replace: {
